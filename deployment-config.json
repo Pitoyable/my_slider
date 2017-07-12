@@ -1,0 +1,9 @@
+{
+    "type": "sftp",
+    "host": "192.168.0.23",
+    "username": "pi",
+    "password": "paulette3",
+    "port": 22,
+    "remotePath": "/var/www/html/clients/delices/wp-content/plugins/my_sliders",
+    "uploadOnSave": true
+}

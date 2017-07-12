@@ -1,0 +1,54 @@
+.my_custom form {
+  margin-top: 60px;
+  border: 1px solid black;
+  padding: 20px;
+}
+.my_custom img {
+  max-height: 120px;
+  width: auto;
+  display: block;
+  margin: auto;
+}
+.my_custom .text-center {
+  text-align: center;
+}
+.my_custom .slider-name {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+.my_custom button[name=add_slide], .my_custom  button[name=save_slides], .my_custom  .delete_slide {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+.my_custom .slide_div {
+  position: relative;
+  padding: 0 10px;
+  overflow: hidden;
+  width: 32%;
+  display: inline-block;
+}
+.my_custom .caption_label {
+  margin-top: 10px;
+  text-align: center;
+  display: block;
+}
+.my_custom .caption_input {
+  width: 100%;
+}
+.my_custom .picture_slide {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+}
+.my_custom .dashicons {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.my_custom .dashicons-no {
+  color: red;
+}
+.my_custom .dashicons:hover {
+  transform: scale(1.2);
+}
