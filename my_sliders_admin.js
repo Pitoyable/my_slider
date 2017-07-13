@@ -33,7 +33,18 @@ jQuery(document).ready(function($) {
   // Fonction pour injecter la valeur de lien de la page sélectionnée dans l'input hidden
   function linkSlideValue() {
     $('.select_link').on('change', function() {
-      $(this).siblings('.link_slide').val($(this).val());
+      var link_slide = $(this).siblings('.link_slide');
+      if ($(this).val() == 'custom') {
+        $('.custom_link_container').show(200);
+        $(link_slide).val('');
+        $('.custom_link').on('change', function() {
+          $(link_slide).val($(this).val());
+        })
+      } else {
+        $('.custom_link_container').hide(200);
+        $('.custom_link').val('');
+        $(link_slide).val($(this).val());
+      }
     })
   }
   // Fonction pour le formulaire d'ajout/modification de slider
@@ -42,6 +53,8 @@ jQuery(document).ready(function($) {
     $('.clean').val('');
     $('.clean_img').attr('src', '');
     $('#id_du_slider').val('');
+    $('#add_slider_btn').html('');
+    $('#add_slider_btn').data('action', '');
   };
 
   // Fonction pour supprimer un slider
@@ -62,6 +75,7 @@ jQuery(document).ready(function($) {
         data: datas,
         success: function(data) {
           $this.parents('tr').remove();
+          $('#message').clearQueue();
           $('#message').addClass('notice-success');
           $('#message').removeClass('notice-error');
           $('#message').html('<p>Le slider a bien été supprimé !</p>');
@@ -82,6 +96,7 @@ jQuery(document).ready(function($) {
   // Fonction pour modifier un slider
   function modify_slider() {
     $('.modify_slider').on('click', function(e) {
+      $('#form_add_slider').hide(300);
       e.stopImmediatePropagation();
       e.preventDefault();
       var $this = $(this),
@@ -91,6 +106,8 @@ jQuery(document).ready(function($) {
       };
 
       cleanForm();
+      $('#add_slider_btn').html('Enregister les modifications');
+      $('#add_slider_btn').data('action', 'modify');
 
       jQuery.ajax({
         type: "POST",
@@ -129,7 +146,7 @@ jQuery(document).ready(function($) {
         }
       })
 
-      add_slider_function('Le slider à bien été modifié, actualisé la page afin de le voir.', false);
+      add_slider_function();
     })
   }
   // Modifier un slider au chargement de la page
@@ -156,20 +173,26 @@ jQuery(document).ready(function($) {
   }
 
   // Fonction pour ajouter un slider
-  function add_slider_function($message = 'Le slider a bien été ajouté !', $td = true) {
+  function add_slider_function($action) {
     $('#form_add_slider').on('submit', function(e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var datas = $(this).serializeArray();
+      var datas = $(this).serializeArray(),
+          $action = $('#add_slider_btn').data('action');
+
+      if ($action === 'add') {
+        $message = 'Le slider a bien été ajouté !';
+        $td = true;
+      } else if ($action === 'modify') {
+        $message = 'Le slider à bien été modifié, actualisé la page afin de le voir.'
+        $td = false;
+      }
 
       jQuery.ajax({
         type: "POST",
         url: ajaxurl,
         data: datas,
         success: function(data) {
-          if ($td == true) {
-            $('<tr><td class="id_slider">'+data.ID+'</td><td>'+data.nom+'</td><td>'+data.slides+'</td><td class="modify_slider"><span class="dashicons dashicons-admin-generic"></span></td><td class="delete_slider"><span class="dashicons dashicons-no"></span></td></tr>').appendTo($('.list_sliders'));
-          }
 
           delete_slider();
           $('#message').addClass('notice-success');
@@ -177,6 +200,17 @@ jQuery(document).ready(function($) {
           $('#message').html('<p>'+$message+'</p>');
           $('#message').show(300).delay(5000).hide(300);
           cleanForm();
+          $('#add_slider_btn').html('Ajouter un slider');
+          $('#add_slider_btn').data('action', 'add');
+          if ($td == true) {
+            $('<tr><td class="id_slider">'+data.ID+'</td><td>'+data.nom+'</td><td>'+data.slides+'</td><td class="modify_slider"><span class="dashicons dashicons-admin-generic"></span></td><td class="delete_slider"><span class="dashicons dashicons-no"></span></td></tr>').appendTo($('.list_sliders'));
+
+            delete_slider();
+            modify_slider();
+          }
+          if ($td == false) {
+            $('#form_add_slider').hide(300);
+          };
         },
         error: function(data) {
           $('#message').removeClass('notice-success');
@@ -190,14 +224,21 @@ jQuery(document).ready(function($) {
 
   // Apparition du formulaire d'ajout de slider
   $('#add_slider').on('click', function() {
+    $('#form_add_slider').hide(300);
     cleanForm();
     $('#form_add_slider').show(300);
     mediaUploaderFunction();
     linkSlideValue();
+
+    $('#add_slider_btn').html('Ajouter le slider');
+    $('#add_slider_btn').data('action', 'add');
+
     add_slider_function();
 
     // Ajout de slide au slider.
     $('#add_slides_button').on('click', function(e) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
       addSlide();
     })
 

@@ -197,6 +197,12 @@ function slider_list_meta() {
 	  </select>
   </p>
 
+  <p>
+    <label for="slider_list[checkbox]">Afficher les légendes :
+		<input type="checkbox" name="slider_list[checkbox]" value="checkbox" <?php if ( $meta['checkbox'] === 'checkbox' ) echo 'checked'; ?>>
+	</label>
+  </p>
+
   <?php
 }
 

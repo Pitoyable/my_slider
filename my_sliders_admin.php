@@ -52,6 +52,7 @@
       <label>Lien de la slide :</label>
       <select class="select_link" name="">
         <option value="">Aucun lien</option>
+        <option value="custom">Lien personnalisé</option>
         <?php
           $args = array(
             'post_type' => 'page',
@@ -64,13 +65,17 @@
            <option value="<?php echo get_permalink($page->ID); ?>"><?php echo $page->post_title ?></option>
          <?php endforeach; ?>
       </select>
+      <div class="custom_link_container" style="display:none">
+        <label>Lien personnalisé : </label>
+        <input type="text" class="custom_link" value="">
+      </div>
       <input type="hidden" class="link_slide clean" name="link_slide" value="">
     </div>
     <button id="add_slides_button" type="button" name="add_slide">Ajouter une slide</button>
     <input id="id_du_slider" type="hidden" name="id_du_slider" value="">
     <button id="delete_slides_button" type="button" class="delete_slide">Supprimer une slide</button>
     <input type="hidden" name="action" value="add_slider">
-    <button type="submit" name="save_slides"><span class="dashicons dashicons-yes"></span>Ajouter le slider !</button>
+    <button id="add_slider_btn" type="submit" name="save_slides" data-action=""><span class="dashicons dashicons-yes"></span>Ajouter le slider !</button>
   </form>
 
 </div>
