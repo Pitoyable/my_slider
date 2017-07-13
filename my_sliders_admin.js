@@ -35,14 +35,14 @@ jQuery(document).ready(function($) {
     $('.select_link').on('change', function() {
       var link_slide = $(this).siblings('.link_slide');
       if ($(this).val() == 'custom') {
-        $('.custom_link_container').show(200);
+        $(this).siblings('.custom_link_container').show(200);
         $(link_slide).val('');
-        $('.custom_link').on('change', function() {
+        $(this).siblings('.custom_link_container').children('.custom_link').on('change', function() {
           $(link_slide).val($(this).val());
         })
       } else {
-        $('.custom_link_container').hide(200);
-        $('.custom_link').val('');
+        $(this).siblings('.custom_link_container').hide(200);
+        $(this).siblings('.custom_link_container').children('.custom_link').val('');
         $(link_slide).val($(this).val());
       }
     })
@@ -161,7 +161,7 @@ jQuery(document).ready(function($) {
     if (slide_data == 3) {
       return
     } else {
-      $('<div class="slide_div more_slide slide_number_'+slide_data+'" data-slide="'+new_slide_data+'"><p class="h3">Slide '+new_slide_data+'</p><img src="" alt="" class="clean_img"><input class="picture_slide" type="button" name="slide" value="Choisir une image"><input class="picture_slide_url" type="hidden" name="slide_url_'+new_slide_data+'"><div class="caption_slide"><label class="caption_label">Légende de la slide :</label><input class="caption_input" type="text" name="caption_slide_'+new_slide_data+'" value=""></div><label>Lien de la slide :</label><select class="select_link select_number'+new_slide_data+'" name=""><option value="">Aucun lien </option></select><input type="hidden" class="link_slide" name="link_slide_'+new_slide_data+'" value=""></div>').insertBefore($('#add_slides_button'));
+      $('<div class="slide_div more_slide slide_number_'+slide_data+'" data-slide="'+new_slide_data+'"><p class="h3">Slide '+new_slide_data+'</p><img src="" alt="" class="clean_img"><input class="picture_slide" type="button" name="slide" value="Choisir une image"><input class="picture_slide_url" type="hidden" name="slide_url_'+new_slide_data+'"><div class="title_slide"><label class="title_label">Titre de la slide :</label><input class="title_input clean" type="text" name="title_slide_'+new_slide_data+'" value=""></div><div class="caption_slide"><label class="caption_label">Légende de la slide :</label><input class="caption_input" type="text" name="caption_slide_'+new_slide_data+'" value=""></div><label>Lien de la slide :</label><select class="select_link select_number'+new_slide_data+'"><option value="">Aucun lien </option><option value="custom">Lien personnalisé</option></select><div class="custom_link_container" style="display:none"><label>Lien personnalisé : </label><input type="text" class="custom_link" value=""></div><input type="hidden" class="link_slide" name="link_slide_'+new_slide_data+'" value=""></div>').insertBefore($('#add_slides_button'));
 
       mediaUploaderFunction();
 

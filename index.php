@@ -87,7 +87,9 @@ function slider_function($id = 0) {
   $content[$id][0]['name'] = $slider_name;
   $content[$id][0]['ID'] = $id;
   // Premier slide
+  $slide_title = sanitize_text_field( $_POST['title_slide'] );
   $slide_caption = sanitize_text_field( $_POST['caption_slide'] );
+  $content[$id][1]['title'] = $slide_title;
   $content[$id][1]['caption'] = $slide_caption;
   $slides_number = 1;
   if (filter_var($_POST['slide_url'], FILTER_VALIDATE_URL)) {
@@ -109,8 +111,10 @@ function slider_function($id = 0) {
   }
   // Deuxième slide
   if (isset($_POST['slide_url_2'])) {
+    $slide_title_2 = sanitize_text_field( $_POST['title_slide_2'] );
     $slide_caption_2 = sanitize_text_field( $_POST['caption_slide_2'] );
     $content[$id][2]['caption'] = $slide_caption_2;
+    $content[$id][2]['title'] = $slide_title_2;
     $slides_number = 2;
     if (filter_var($_POST['slide_url_2'], FILTER_VALIDATE_URL)) {
       $slide_picture_url_2 = sanitize_text_field( $_POST['slide_url_2'] );
@@ -132,7 +136,9 @@ function slider_function($id = 0) {
   }
   // Troisième slide
   if (isset($_POST['slide_url_3'])) {
+    $slide_title_3 = sanitize_text_field( $_POST['title_slide_3'] );
     $slide_caption_3 = sanitize_text_field( $_POST['caption_slide_3'] );
+    $content[$id][3]['title'] = $slide_title_3;
     $content[$id][3]['caption'] = $slide_caption_3;
     $slides_number = 3;
     if (filter_var($_POST['slide_url_3'], FILTER_VALIDATE_URL)) {

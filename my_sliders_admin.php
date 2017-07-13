@@ -3,10 +3,11 @@
   <?php
   $sliders = get_option('my_sliders');
    ?>
-  <h2>Réglages de mes sliders :</h2>
+  <h2 class="title_page">Réglages de mes sliders :</h2>
 
   <div id="message" class="notice" style="display:none"></div>
 
+  <button id="add_slider" type="button" name="add_slider">Ajouter un slider</button>
   <table class="list_sliders">
     <tr>
       <th>ID</th>
@@ -31,7 +32,6 @@
     ?>
   </table>
 
-  <button id="add_slider" type="button" name="add_slider">Ajouter un slider</button>
 
   <form id="form_add_slider" method="post" name="add_sliders" style="display:none;">
 
@@ -45,6 +45,10 @@
       <img src="" alt="" class="clean_img">
       <input class="picture_slide" type="button" name="slide" value="Choisir une image">
       <input class="picture_slide_url clean" type="hidden" name="slide_url">
+      <div class="title_slide">
+        <label class="title_label">Titre de la slide :</label>
+        <input class="title_input clean" type="text" name="title_slide" value="" required>
+      </div>
       <div class="caption_slide">
         <label class="caption_label">Légende de la slide :</label>
         <input class="caption_input clean" type="text" name="caption_slide" value="">
@@ -81,8 +85,5 @@
 </div>
 <!-- echo str_replace('%7E', '~', $_SERVER['REQUEST_URI'])  -->
 <script type="text/javascript">
-<?php
-  $js_array = json_encode($pages);
-  echo "var pages = ". $js_array . ";\n";
-?>
+<?php $js_array = json_encode($pages); echo "var pages = ". $js_array . ";\n"; ?>
 </script>

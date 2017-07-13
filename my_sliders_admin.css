@@ -17,6 +17,15 @@
   font-size: 16px;
   margin-bottom: 30px;
 }
+#add_slider {
+  margin-top: 40px;
+}
+.my_custom table {
+  width: 70%;
+}
+.my_custom table td {
+  text-align: center;
+}
 .my_custom button[name=add_slide], .my_custom  button[name=save_slides], .my_custom  .delete_slide {
   display: block;
   margin: auto;
